@@ -1,0 +1,19 @@
+name: qtl-bench
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python>=3.10
+  - numpy
+  - pandas
+  - pyarrow          # read GTEx portal parquets
+  - pyranges         # interval overlap and k_nearest feature assignment
+  - scipy
+  - tqdm
+  - bedtools         # merge_variants sorts with `bedtools sort -header`
+  - make
+  - curl
+  - wget
+  # QC notebooks only
+  - matplotlib
+  - jupyter
