@@ -64,7 +64,3 @@ where `d` is the modality-specific feature distance, `λ_d = 1` is the distance 
 ## Output
 
 Per modality and tissue: `{tissue}_pos.vcf`, `{tissue}_neg.vcf`, and `{tissue}_matches.tsv`. Across all tissues: a deduplicated sorted union VCF (`merge.vcf`) and a concatenated matches table; the separate `pos_merge.vcf` / `neg_merge.vcf` unions are retained for backward compatibility but are deprecated. The PIP ≥ 0.9 SNP release contains 58,122 / 58,517 / 14,823 tissue-level pairs and 23,836 / 20,732 / 4,991 unique positive variants for eQTL / sQTL / apaQTL; the gold subsets contain 16,415 / 19,371 / 4,548 pairs across 42 / 47 / 47 tissues. VCF INFO fields encode gene, tissue, PIP, region (eQTL) or feature distance (sQTL/apaQTL), TPM, MAF, allelic fold change (eQTL positives) or per-allele slope (sQTL/apaQTL positives), and the −log10 nominal p-value.
-
-## Comparison to prior benchmarks
-
-This benchmark supersedes the earlier EMS-era GTEx fine-mapped sets, which used a discriminative classifier rather than SuSiE, covered eQTL only, did not stratify by gene-relative region, and did not enforce a cross-tissue blocklist on candidate negatives. The new sets are more conservative (the cross-tissue blocklist excludes weakly fine-mapped variants from the negative pool) and more tightly matched in local context, particularly for promoter-distal eQTL and short-range sQTL/apaQTL signals.
