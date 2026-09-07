@@ -164,7 +164,7 @@ enough.
 ### Inputs
 
 ```
-make -f portal.mk all        # ~2 hours, ~60 GB
+make -f portal.mk all        # ~13 GB, download-bound
 ```
 
 downloads into `data/gtex11/portal/`:

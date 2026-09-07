@@ -16,9 +16,12 @@ transcripts (readthroughs excluded).
 | `snp/eqtl_gold` | 16,415 | 42 |
 | `snp/sqtl_gold` | 19,371 | 47 |
 | `snp/paqtl_gold` | 4,548 | 47 |
-| `indel/eqtl` | 3,352 | 50 |
+| `indel/eqtl` | 3,352 * | 50 |
 | `indel/sqtl` | 2,857 | 50 |
 | `indel/paqtl` | 1,186 | 50 |
+
+\* 3,344 matched pairs: 8 eQTL indel positives exhaust their `(region, Δlen)`
+bucket and ship without a negative. Every other set pairs exactly.
 
 SNP sets are built at `--pip 0.9 --exclude_pip 0.01`; indel sets add
 `--indel_t 4`. Gold sets use the defaults of `src/gold_set.py`
