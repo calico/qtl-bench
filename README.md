@@ -4,8 +4,17 @@ Benchmark sets for evaluating sequence-to-function models on regulatory variant
 effect prediction, built from statistically fine-mapped QTLs and their matched
 negatives.
 
-The first study is **GTEx v11** (`gtex11`), covering three molecular phenotypes
-across all 50 tissues:
+Three studies are built:
+
+| study | release | QTLs | source |
+|---|---|---|---|
+| `gtex11` | `gtex11_v1` | bulk eQTL, sQTL, apaQTL · 50 tissues | GTEx v11 |
+| `adsp_brain` | `adsp_brain_v1` | single-nucleus eQTL · 6 brain cell types, 3 ROSMAP cohorts | ADSP FunGen xQTL (ROSMAP) |
+| `tenk10k_pbmc` | `tenk10k_pbmc_v1` | single-cell eQTL (28 cell types) and caQTL positives (26) · PBMC | TenK10K Phase 1 |
+
+The single-cell studies are described in [Single-cell studies](#single-cell-studies);
+everything else below is GTEx. **GTEx v11** (`gtex11`) covers three molecular
+phenotypes across all 50 tissues:
 
 - **eQTL** — cis gene expression
 - **sQTL** — cis splicing (LeafCutter intron-cluster usage)
@@ -155,6 +164,111 @@ fewer candidates.
 **Scoring.** Length-changing variants need reference predictions spliced at the
 variant bin rather than duplicated across the left/right compensation shifts;
 in `hound_snp.py` this is `--indel_stitch`.
+
+## Single-cell studies
+
+`adsp_brain` and `tenk10k_pbmc` apply the GTEx recipe to cell-type-resolved QTLs. A "tissue"
+is a cell type. eQTL sets are built exactly as GTEx eQTLs are: SuSiE PIP ≥ 0.9 positives, and
+one-to-one negatives drawn from a pool of nominally significant cis variants, matched on
+expression, TSS distance, MAF and alleles with the same score and greedy assignment
+(`src/eqtl_vcfs.py` functions, called from `src/sc/`). caQTL sets are positives only.
+
+```
+./fetch.sh adsp_brain_v1      # -> data/adsp_brain/
+./fetch.sh tenk10k_pbmc_v1    # -> data/tenk10k_pbmc/
+
+data/adsp_brain/
+  snp/{eqtl,eqtl_rosmap_mit,eqtl_rosmap_cuimc1}/  indel/{...}/  VERSION
+data/tenk10k_pbmc/
+  snp/{eqtl,caqtl}/  indel/{eqtl,caqtl}/  VERSION
+```
+
+eQTL set directories have the GTEx file inventory (`{cell_type}_pos.vcf`, `_neg.vcf`,
+`_matches.tsv`, `merge.vcf`, `matches.tsv`, `build.json`). caQTL set directories hold only
+`{cell_type}_pos.vcf`, `merge.vcf` (the positives) and `build.json`. There are no `_gold`
+sets, `spec_slopes.parquet` or deprecated `pos_merge`/`neg_merge` files.
+
+| set | pairs (eQTL) / positives (caQTL) | cell types | unique positives |
+|---|---|---|---|
+| `adsp_brain/snp/eqtl` | 3,842 | 6 | 3,115 |
+| `adsp_brain/snp/eqtl_rosmap_mit` | 2,850 | 6 | 2,386 |
+| `adsp_brain/snp/eqtl_rosmap_cuimc1` | 2,284 | 6 | 1,856 |
+| `adsp_brain/indel/eqtl` | 692 | 6 | 639 |
+| `adsp_brain/indel/eqtl_rosmap_mit` | 665 | 6 | 621 |
+| `adsp_brain/indel/eqtl_rosmap_cuimc1` | 446 | 6 | 409 |
+| `tenk10k_pbmc/snp/eqtl` | 13,544 | 28 | 6,350 |
+| `tenk10k_pbmc/indel/eqtl` | 2,969 | 28 | 1,791 |
+| `tenk10k_pbmc/snp/caqtl` | 38,672 positives | 26 | 25,493 |
+| `tenk10k_pbmc/indel/caqtl` | 22,200 positives | 26 | 18,577 |
+
+Every eQTL positive has a matched negative.
+
+Sources and cell types:
+- **adsp_brain:** ADSP Functional Genomics xQTL Atlas (NIAGADS NG00184.v1), ROSMAP snRNA
+  eQTLs. `eqtl` is the combined CUIMC1+CUIMC2+MIT cohort; `eqtl_rosmap_mit` and
+  `eqtl_rosmap_cuimc1` are the MIT and CUIMC1 cohorts fine-mapped alone. The cohorts share
+  donors, so they are not independent replicates. Fine-mapping on different donor sets still
+  picks different variants: only 41% (MIT) and 58% (CUIMC1) of their positives are positives in
+  the combined set. Cell types: `excitatory_neuron`, `inhibitory_neuron`, `oligodendrocyte`,
+  `astrocyte`, `OPC`, `microglia`.
+- **tenk10k_pbmc eQTL:** TenK10K Phase 1 scRNA (Zenodo 10.5281/zenodo.18221260), all 28
+  Azimuth l2 cell types, from `CD4_TCM` (1,525 SNP pairs) to `ILC` (21).
+- **tenk10k_pbmc caQTL:** TenK10K Phase 1 multiome (Hugging Face `anglixue/TenK10K_multiome`),
+  all 26 released cell types, from `CD14_Mono` (6,213 SNP positives) to `ASDC` (136).
+
+### Differences from gtex11
+
+- **Variant IDs** are `chrN:pos:ref:alt` (GRCh38), as the sources release them, not
+  GTEx's `chrN_pos_ref_alt_b38`. Key on the ID column.
+- **eQTL INFO** has the GTEx keys, with these meanings (the VCF headers say the same):
+
+  | Field | `adsp_brain` | `tenk10k_pbmc` |
+  |---|---|---|
+  | `TISSUE` | FunGen snuc-eQTL cell type | TenK10K Azimuth l2 cell type |
+  | `TPM` | HCA Human Brain Cell Atlas v1.0 (Siletti et al. 2023) pseudobulk CPM over the cell type's atlas clusters | OneK1K (Yazar et al. 2022) pseudobulk CPM, Azimuth l2 |
+  | `AFC` | FunGen SuSiE `conditional_effect` (alt vs ref) | SAIGE-QTL `BETA` (alt allele) |
+  | `NLP` | −log10 FunGen `qtl_p_val` | −log10 SAIGE-QTL nominal p |
+
+  `AFC` is therefore not a log2 allelic fold change on these sets; compare it within a
+  study only.
+- **caQTL sets have no negatives.** Matching needs per-peak accessibility (the role TPM plays
+  for eQTLs) and a pool of nominally significant non-causal variants. TenK10K releases neither,
+  so the caQTL sets support effect-size evaluation (e.g. Spearman of predicted against `SLOPE`)
+  but not classification. caQTL INFO: `PEAK` (the variant's highest-PIP peak), `TISSUE`, `PIP`,
+  `PKD` (distance to `PEAK`, 0 inside), `MAF`, `AF`, `NLP` and `SLOPE` (tensorQTL, alt allele).
+- **No gold sets yet.** `gold_set.py` is GTEx-calibrated, and the single-cell sets are
+  small enough to evaluate whole.
+
+### Construction
+
+| | `adsp_brain` eQTL | `tenk10k_pbmc` eQTL | `tenk10k_pbmc` caQTL |
+|---|---|---|---|
+| positives | FunGen `single_context_finemapping_all` PIP ≥ 0.9, protein-coding gene in the HCA atlas | SuSiE PIP ≥ 0.9, protein-coding gene in OneK1K; AF, p and BETA from the 100 kb SAIGE-QTL tests | SuSiE PIP ≥ 0.9, highest-PIP peak per variant |
+| pool | the cohort's `bh_significant` pairs of the six cell types (AF = median), restricted to the focal cell type's fine-mapped genes | per-gene BH q < 0.05 pairs of all 28 cell types, focal fine-mapped genes | — |
+| blocklist | PIP ≥ 0.01 in any cell type of any ROSMAP cohort | PIP ≥ 0.01 in any of the 28 cell types | — |
+| negative feature | nearest TSS (GTEx rule) | nearest TSS | — |
+| buckets | (region, ref, alt) / (region, Δlen) | same | — |
+
+Rebuild:
+
+```
+src/sc/fetch_adsp_brain.sh                      # NIAGADS NG00184 -> data/adsp_brain/portal/raw/
+src/sc/fetch_tenk10k_pbmc.sh all                # Zenodo + HF -> data/tenk10k_pbmc/portal/{eqtl,caqtl}/
+python src/sc/build_pbmc_finemapped_tsv.py      # TenK10K susie_summary -> fine-mapping table
+python src/sc/extract_pbmc_eqtl_nominal.py --celltypes <all 28>   # positives' BETA/AF/p and the BH pool
+python src/sc/siletti_pseudobulk.py --h5ad_dir SIL    # HCA atlas h5ads (siletti_urls.tsv) -> pseudobulk_cpm.tsv
+python src/sc/onek1k_pseudobulk.py --h5ad onek1k.h5ad  # CELLxGENE dde06e0f-... -> pseudobulk_cpm.tsv
+python src/sc/build_adsp_brain.py --indel_t {0,4} --cohort {ROSMAP_CUIMC1_2_MIT,ROSMAP_MIT,ROSMAP_CUIMC1} \
+    --siletti_cpm SIL/pseudobulk_cpm.tsv
+python src/sc/build_tenk10k_pbmc_eqtl.py --indel_t {0,4} --onek1k_cpm ONEK1K/pseudobulk_cpm.tsv
+python src/sc/build_tenk10k_pbmc_caqtl.py --indel_t {0,4}
+```
+
+Each brain cell type's pseudobulk sums the atlas clusters listed in `src/sc/siletti_clusters.tsv`
+(153 clusters). The builders read `data/gtex11/portal/gencode48_basic_nort_protein.gtf`
+(`portal.mk`), and every input is a public download. The builders pin `PYTHONHASHSEED=0` (set
+order otherwise breaks a few near-ties differently run to run), so rebuilds reproduce the
+released files byte for byte.
 
 ## Rebuilding from source
 
@@ -396,6 +510,8 @@ fetch.sh          download a release
 portal.mk         download every public input
 src/
   make_vcfs.py    orchestrator: preprocessing, parallel fan-out, merge
+  sc/             single-cell studies: fetchers, input preparation, builders (qb_sets.py
+                  shared matching)
   {eqtl,sqtl,paqtl}_vcfs.py   per-tissue construction
   gold_set.py     derive a _gold subset of a set directory
   qc_lib.py       VCF / match-table loaders shared by the notebooks
@@ -409,12 +525,16 @@ data/             gitignored; releases unpack here
 
 ## Citation
 
-If you use these sets, please cite this repository and the GTEx Consortium v11
-release. The underlying summary statistics and fine-mapping are the Consortium's;
-this repository contributes the positive selection, negative matching, and gold
-filtering.
+If you use these sets, please cite this repository and the release the study is built
+on: the GTEx Consortium v11 release (`gtex11`); the ADSP Functional Genomics xQTL Atlas,
+NIAGADS NG00184 (`adsp_brain`); or TenK10K Phase 1 (`tenk10k_pbmc`): Cuomo et al. for the
+eQTLs, and Xue et al., medRxiv 2025.08.27.25334533, for the caQTLs. The underlying summary
+statistics and fine-mapping are theirs; this repository contributes the positive
+selection, negative matching, and gold filtering.
 
 ## License
 
 Code is Apache-2.0 ([LICENSE](LICENSE)). The released benchmark data is CC-BY-4.0,
-derived from open-access GTEx v11 summary statistics.
+derived from open-access summary statistics: GTEx v11, NIAGADS NG00184 (open access;
+see its data use terms), and TenK10K Phase 1 (CC-BY-4.0). The TenK10K caQTL release
+accompanies a preprint that had not completed peer review when these sets were built.

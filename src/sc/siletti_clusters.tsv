@@ -1,0 +1,154 @@
+cell_type	cluster_id	supercluster
+OPC	32	Oligodendrocyte precursor
+OPC	33	Oligodendrocyte precursor
+OPC	34	Oligodendrocyte precursor
+OPC	35	Oligodendrocyte precursor
+OPC	36	Oligodendrocyte precursor
+astrocyte	52	Astrocyte
+astrocyte	53	Astrocyte
+astrocyte	54	Astrocyte
+astrocyte	55	Astrocyte
+astrocyte	56	Astrocyte
+astrocyte	57	Astrocyte
+astrocyte	58	Astrocyte
+astrocyte	59	Astrocyte
+astrocyte	60	Astrocyte
+astrocyte	61	Astrocyte
+astrocyte	62	Astrocyte
+astrocyte	63	Astrocyte
+excitatory_neuron	83	Deep-layer near-projecting
+excitatory_neuron	84	Deep-layer corticothalamic and 6b
+excitatory_neuron	85	Deep-layer near-projecting
+excitatory_neuron	86	Deep-layer near-projecting
+excitatory_neuron	87	Deep-layer near-projecting
+excitatory_neuron	88	Deep-layer near-projecting
+excitatory_neuron	89	Deep-layer near-projecting
+excitatory_neuron	90	Deep-layer near-projecting
+excitatory_neuron	91	Deep-layer near-projecting
+excitatory_neuron	92	Deep-layer near-projecting
+excitatory_neuron	93	Deep-layer near-projecting
+excitatory_neuron	94	Deep-layer near-projecting
+excitatory_neuron	95	Deep-layer near-projecting
+excitatory_neuron	96	Deep-layer near-projecting
+excitatory_neuron	97	Deep-layer corticothalamic and 6b
+excitatory_neuron	98	Deep-layer corticothalamic and 6b
+excitatory_neuron	99	Deep-layer corticothalamic and 6b
+excitatory_neuron	100	Deep-layer corticothalamic and 6b
+excitatory_neuron	101	Deep-layer corticothalamic and 6b
+excitatory_neuron	102	Deep-layer corticothalamic and 6b
+excitatory_neuron	103	Deep-layer corticothalamic and 6b
+excitatory_neuron	104	Deep-layer corticothalamic and 6b
+excitatory_neuron	105	Deep-layer corticothalamic and 6b
+excitatory_neuron	106	Deep-layer corticothalamic and 6b
+excitatory_neuron	107	Deep-layer corticothalamic and 6b
+excitatory_neuron	108	Deep-layer corticothalamic and 6b
+excitatory_neuron	109	Deep-layer corticothalamic and 6b
+excitatory_neuron	110	Deep-layer corticothalamic and 6b
+excitatory_neuron	111	Deep-layer corticothalamic and 6b
+excitatory_neuron	112	Deep-layer corticothalamic and 6b
+excitatory_neuron	120	Upper-layer intratelencephalic
+excitatory_neuron	121	Upper-layer intratelencephalic
+excitatory_neuron	122	Upper-layer intratelencephalic
+excitatory_neuron	123	Upper-layer intratelencephalic
+excitatory_neuron	124	Upper-layer intratelencephalic
+excitatory_neuron	125	Upper-layer intratelencephalic
+excitatory_neuron	126	Upper-layer intratelencephalic
+excitatory_neuron	127	Upper-layer intratelencephalic
+excitatory_neuron	128	Upper-layer intratelencephalic
+excitatory_neuron	129	Upper-layer intratelencephalic
+excitatory_neuron	130	Upper-layer intratelencephalic
+excitatory_neuron	131	Upper-layer intratelencephalic
+excitatory_neuron	133	Upper-layer intratelencephalic
+excitatory_neuron	134	Upper-layer intratelencephalic
+excitatory_neuron	135	Upper-layer intratelencephalic
+excitatory_neuron	136	Deep-layer intratelencephalic
+excitatory_neuron	137	Deep-layer intratelencephalic
+excitatory_neuron	138	Upper-layer intratelencephalic
+excitatory_neuron	139	Deep-layer intratelencephalic
+excitatory_neuron	140	Deep-layer intratelencephalic
+excitatory_neuron	141	Deep-layer intratelencephalic
+excitatory_neuron	142	Deep-layer intratelencephalic
+excitatory_neuron	143	Deep-layer intratelencephalic
+excitatory_neuron	144	Deep-layer intratelencephalic
+excitatory_neuron	145	Deep-layer intratelencephalic
+excitatory_neuron	146	Deep-layer intratelencephalic
+excitatory_neuron	147	Deep-layer intratelencephalic
+excitatory_neuron	148	Deep-layer intratelencephalic
+excitatory_neuron	149	Deep-layer intratelencephalic
+excitatory_neuron	150	Deep-layer intratelencephalic
+excitatory_neuron	151	Deep-layer intratelencephalic
+excitatory_neuron	152	Deep-layer intratelencephalic
+inhibitory_neuron	236	MGE interneuron
+inhibitory_neuron	239	MGE interneuron
+inhibitory_neuron	240	MGE interneuron
+inhibitory_neuron	241	MGE interneuron
+inhibitory_neuron	242	MGE interneuron
+inhibitory_neuron	243	MGE interneuron
+inhibitory_neuron	244	MGE interneuron
+inhibitory_neuron	245	MGE interneuron
+inhibitory_neuron	246	MGE interneuron
+inhibitory_neuron	247	MGE interneuron
+inhibitory_neuron	248	MGE interneuron
+inhibitory_neuron	249	MGE interneuron
+inhibitory_neuron	250	MGE interneuron
+inhibitory_neuron	251	MGE interneuron
+inhibitory_neuron	252	MGE interneuron
+inhibitory_neuron	253	MGE interneuron
+inhibitory_neuron	254	MGE interneuron
+inhibitory_neuron	255	MGE interneuron
+inhibitory_neuron	256	MGE interneuron
+inhibitory_neuron	257	MGE interneuron
+inhibitory_neuron	258	MGE interneuron
+inhibitory_neuron	259	MGE interneuron
+inhibitory_neuron	260	MGE interneuron
+inhibitory_neuron	261	MGE interneuron
+inhibitory_neuron	262	MGE interneuron
+inhibitory_neuron	263	MGE interneuron
+inhibitory_neuron	264	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	265	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	266	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	267	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	268	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	269	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	270	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	271	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	272	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	273	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	274	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	275	LAMP5-LHX6 and Chandelier
+inhibitory_neuron	276	CGE interneuron
+inhibitory_neuron	277	CGE interneuron
+inhibitory_neuron	278	CGE interneuron
+inhibitory_neuron	279	CGE interneuron
+inhibitory_neuron	280	CGE interneuron
+inhibitory_neuron	281	CGE interneuron
+inhibitory_neuron	282	CGE interneuron
+inhibitory_neuron	283	CGE interneuron
+inhibitory_neuron	284	CGE interneuron
+inhibitory_neuron	285	CGE interneuron
+inhibitory_neuron	286	CGE interneuron
+inhibitory_neuron	287	CGE interneuron
+inhibitory_neuron	288	CGE interneuron
+inhibitory_neuron	289	CGE interneuron
+inhibitory_neuron	290	CGE interneuron
+inhibitory_neuron	291	CGE interneuron
+inhibitory_neuron	292	CGE interneuron
+inhibitory_neuron	293	CGE interneuron
+inhibitory_neuron	294	CGE interneuron
+inhibitory_neuron	295	CGE interneuron
+inhibitory_neuron	296	CGE interneuron
+microglia	4	Microglia
+microglia	5	Microglia
+microglia	6	Microglia
+microglia	7	Microglia
+microglia	8	Microglia
+microglia	9	Microglia
+microglia	10	Microglia
+microglia	11	Microglia
+microglia	12	Microglia
+oligodendrocyte	40	Oligodendrocyte
+oligodendrocyte	44	Oligodendrocyte
+oligodendrocyte	45	Oligodendrocyte
+oligodendrocyte	46	Oligodendrocyte
+oligodendrocyte	47	Oligodendrocyte
+oligodendrocyte	49	Oligodendrocyte

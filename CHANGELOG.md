@@ -1,5 +1,44 @@
 # Changelog
 
+## adsp_brain_v1
+
+First release. Single-nucleus eQTLs of six brain cell types from the ADSP Functional
+Genomics xQTL Atlas (NIAGADS NG00184.v1), one set per ROSMAP cohort, matched with the GTEx
+eQTL recipe (README, Single-cell studies).
+
+`adsp_brain_v1.tar.gz` unpacks to `VERSION`, `snp/`, and `indel/`:
+
+| set | pairs | cell types |
+|---|---|---|
+| `snp/eqtl` (CUIMC1+CUIMC2+MIT) | 3,842 | 6 |
+| `snp/eqtl_rosmap_mit` | 2,850 | 6 |
+| `snp/eqtl_rosmap_cuimc1` | 2,284 | 6 |
+| `indel/eqtl` | 692 | 6 |
+| `indel/eqtl_rosmap_mit` | 665 | 6 |
+| `indel/eqtl_rosmap_cuimc1` | 446 | 6 |
+
+Built with `src/sc/build_adsp_brain.py --indel_t {0,4} --cohort <cohort>` (`pip 0.9`,
+`exclude_pip 0.01`), expression from HCA Human Brain Cell Atlas v1.0 pseudobulk CPM. The
+cohorts share donors. Variant IDs are `chrN:pos:ref:alt`.
+
+## tenk10k_pbmc_v1
+
+First release. TenK10K Phase 1 single-cell eQTLs (all 28 PBMC cell types), matched with the
+GTEx eQTL recipe, and caQTL positives (26 cell types; no negatives, as TenK10K releases no
+per-peak accessibility to match on).
+
+`tenk10k_pbmc_v1.tar.gz` unpacks to `VERSION`, `snp/`, and `indel/`:
+
+| set | pairs / positives | cell types |
+|---|---|---|
+| `snp/eqtl` | 13,544 pairs | 28 |
+| `indel/eqtl` | 2,969 pairs | 28 |
+| `snp/caqtl` | 38,672 positives | 26 |
+| `indel/caqtl` | 22,200 positives | 26 |
+
+eQTL expression is OneK1K pseudobulk CPM (Azimuth l2); the negative pool spans all 28 cell
+types. Variant IDs are `chrN:pos:ref:alt`. The caQTL source accompanies a preprint.
+
 ## gtex11_v1
 
 First public release. Built from GTEx v11 SuSiE fine-mapping and significant

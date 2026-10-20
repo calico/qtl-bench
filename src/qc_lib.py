@@ -14,14 +14,14 @@ import pandas as pd
 from scipy import stats as _stats
 import matplotlib.pyplot as plt
 
-MODS = ["eqtl", "sqtl", "paqtl"]
+MODS = ["eqtl", "sqtl", "paqtl"]  # plus "caqtl" for tenk10k_pbmc (not in the GTEx notebooks)
 
-DIST_KEY = {"eqtl": "TSSD", "sqtl": "SD", "paqtl": "PD"}                       # VCF INFO
-DIST_COL = {"eqtl": "tss_dist", "sqtl": "splice_dist", "paqtl": "pas_dist"}    # matches.tsv
+DIST_KEY = {"eqtl": "TSSD", "sqtl": "SD", "paqtl": "PD", "caqtl": "PKD"}                          # VCF INFO
+DIST_COL = {"eqtl": "tss_dist", "sqtl": "splice_dist", "paqtl": "pas_dist", "caqtl": "pk_dist"}  # matches.tsv
 DIST_LABEL = {"eqtl": "TSS distance", "sqtl": "splice site distance",
-              "paqtl": "PAS distance"}
-EFFECT_KEY = {"eqtl": "AFC", "sqtl": "SLOPE", "paqtl": "SLOPE"}
-EFFECT_LABEL = {"eqtl": "|AFC|", "sqtl": "|slope|", "paqtl": "|slope|"}
+              "paqtl": "PAS distance", "caqtl": "peak distance"}
+EFFECT_KEY = {"eqtl": "AFC", "sqtl": "SLOPE", "paqtl": "SLOPE", "caqtl": "SLOPE"}
+EFFECT_LABEL = {"eqtl": "|AFC|", "sqtl": "|slope|", "paqtl": "|slope|", "caqtl": "|slope|"}
 
 
 # --- loading ---------------------------------------------------------------
